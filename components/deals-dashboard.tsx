@@ -3053,6 +3053,63 @@ export function DealsDashboard() {
                 <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
                   1. Overview
                 </h2>
+
+                {/* Key Metrics */}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
+                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-bold text-gray-700">Total Deals</p>
+                      <FileText className="h-4 w-4 text-purple-600" />
+                    </div>
+                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                      {stats.totalDeals}
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      {stats.settledCount} settled, {stats.lostDeals} lost
+                    </p>
+                  </div>
+
+                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-bold text-gray-700">Conversion Rate</p>
+                      <Users className="h-4 w-4 text-blue-600" />
+                    </div>
+                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                      {stats.conversionRate}%
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      {stats.convertedCount} of {stats.totalDeals} deals converted
+                    </p>
+                  </div>
+
+                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-bold text-gray-700">Total Settled Value</p>
+                      <DollarSign className="h-4 w-4 text-emerald-600" />
+                    </div>
+                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                      {formatCurrency(stats.settledValue)}
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      From {stats.settledCount} deals
+                    </p>
+                  </div>
+
+                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-bold text-gray-700">Settled Rate</p>
+                      <TrendingUp className="h-4 w-4 text-green-600" />
+                    </div>
+                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                      {stats.settledRate}%
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      {stats.settledCount} of {stats.totalDeals} deals settled
+                    </p>
+                  </div>
+                </div>
+
+                {/* Charts */}
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <h3 className="font-semibold mb-2 text-center text-lg text-violet">Lead Sources</h3>
