@@ -28,6 +28,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { LoadingAnimation } from "@/components/loading-animation"
 import { useFullscreen } from "@/hooks/use-fullscreen"
+import { ChartComment } from "@/components/chart-comment"
 import * as XLSX from "xlsx"
 import Image from "next/image"
 import { LineChart as RechartsLineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart as RechartsPieChart, Pie, Cell, Legend } from 'recharts'
@@ -475,15 +476,16 @@ export function MarketingDashboard() {
                           borderRadius: '8px'
                         }}
                       />
-                      <Line 
-                        type="monotone" 
-                        dataKey="cost" 
-                        stroke="#751FAE" 
+                      <Line
+                        type="monotone"
+                        dataKey="cost"
+                        stroke="#751FAE"
                         strokeWidth={2}
                         dot={{ fill: '#751FAE', strokeWidth: 2, r: 4 }}
                       />
                     </RechartsLineChart>
                   </ResponsiveContainer>
+                  <ChartComment chartId="daily-cost-trend" chartTitle="每日消费趋势" />
                 </CardContent>
               </Card>
 
@@ -518,6 +520,7 @@ export function MarketingDashboard() {
                       </Pie>
                     </RechartsPieChart>
                   </ResponsiveContainer>
+                  <ChartComment chartId="platform-cost-distribution" chartTitle="平台消费分布" />
                 </CardContent>
               </Card>
             </div>
@@ -547,6 +550,7 @@ export function MarketingDashboard() {
                     <Line yAxisId="right" type="monotone" dataKey="conversions" stroke="#3CBDE5" strokeWidth={2} name="转化" />
                   </RechartsLineChart>
                 </ResponsiveContainer>
+                <ChartComment chartId="multi-dimensional-trend" chartTitle="多维度趋势分析" />
               </CardContent>
             </Card>
 
@@ -580,6 +584,7 @@ export function MarketingDashboard() {
                     <Bar dataKey="其他" stackId="a" fill="#FF701F" name="其他" />
                   </BarChart>
                 </ResponsiveContainer>
+                <ChartComment chartId="monthly-leads-stats" chartTitle="每月线索数量统计" />
               </CardContent>
             </Card>
           </TabsContent>
@@ -605,6 +610,7 @@ export function MarketingDashboard() {
                     <Bar dataKey="cost" fill="#751FAE" name="总消费" />
                   </BarChart>
                 </ResponsiveContainer>
+                <ChartComment chartId="platform-performance-comparison" chartTitle="平台效果对比" />
               </CardContent>
             </Card>
           </TabsContent>
