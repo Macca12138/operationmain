@@ -31,9 +31,12 @@ import {
   ChevronRight,
   Calendar,
   Info,
+  Printer,
+  Eye,
 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import { CalendarIcon, ChevronUp, ChevronDown } from "lucide-react"
 import { format } from "date-fns"
@@ -1177,6 +1180,7 @@ export function DealsDashboard() {
   const [sourceFilter, setSourceFilter] = useState("all");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
 
   // Helper functions for week navigation
   const getWeekStart = (date: Date): string => {
@@ -2330,6 +2334,16 @@ export function DealsDashboard() {
           )}
           <Button
             variant="outline"
+            size="sm"
+            onClick={() => setShowPrintPreview(true)}
+            className="bg-white/60 border-violet/30 text-violet hover:bg-violet hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg backdrop-blur-sm"
+            title="Print Dashboard"
+          >
+            <Printer className="h-4 w-4 mr-2" />
+            Print
+          </Button>
+          <Button
+            variant="outline"
             onClick={() => {
               setDeals([]);
               setError(null);
@@ -2559,7 +2573,7 @@ export function DealsDashboard() {
                 <CardDescription className="text-gray-600 font-medium">A summary of all deals based on the current filters.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid gap-6 md:grid-cols-2 items-stretch">
+                <div id="print-overview-charts" className="grid gap-6 md:grid-cols-2 items-stretch">
                   <div className="flex flex-col">
                     <h3 className="font-semibold mb-2 text-center text-lg text-violet">Lead Sources</h3>
                     <p className="text-center text-sm text-violet/70 mb-4">Total: {leadSourcesData.reduce((sum, item) => sum + item.value, 0)} deals</p>
@@ -2783,13 +2797,13 @@ export function DealsDashboard() {
             </Card>
           </TabsContent>
           <TabsContent value="new-deals">
-            <Card className="bg-white/60 border-violet/20 shadow-sm mt-4">
+            <Card id="print-new-deals-section" className="bg-white/60 border-violet/20 shadow-sm mt-4">
               <CardHeader>
                 <CardTitle className="text-violet">New Deals Analysis</CardTitle>
                 <CardDescription className="text-violet/80">Analysis of deals created within the selected date range.</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <div id="print-new-deals-charts" className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                   <Card className="bg-white/60 border-violet/20 shadow-sm">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium text-violet">Total New Deals</CardTitle>
@@ -2943,8 +2957,10 @@ export function DealsDashboard() {
             </Card>
           </TabsContent>
           <TabsContent value="brokers">
-            <BrokerPerformanceTable brokers={brokers} />
-            <Card className="bg-white/60 border-violet/20 shadow-sm mt-4">
+            <div id="print-broker-performance">
+              <BrokerPerformanceTable brokers={brokers} />
+            </div>
+            <Card id="print-settlement-analysis" className="bg-white/60 border-violet/20 shadow-sm mt-4">
               <CardHeader>
                 <CardTitle className="text-violet">Settlement Analysis</CardTitle>
                 <CardDescription className="text-violet/80">Interactive treemap of settled deals by value. Total settled: {filteredDeals.filter(d => d["6. Settled"] && d["6. Settled"].trim() !== "").length} deals</CardDescription>
@@ -2956,7 +2972,7 @@ export function DealsDashboard() {
             </Card>
           </TabsContent>
           <TabsContent value="pipeline">
-            <Card className="bg-white/60 border-violet/20 shadow-sm mt-4">
+            <Card id="print-pipeline-flow" className="bg-white/60 border-violet/20 shadow-sm mt-4">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
@@ -2987,6 +3003,179 @@ export function DealsDashboard() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Print Preview Dialog */}
+      <Dialog open={showPrintPreview} onOpenChange={setShowPrintPreview}>
+        <DialogContent className="max-w-[90vw] max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-2xl">
+              <Eye className="h-6 w-6 text-violet" />
+              Print Preview
+            </DialogTitle>
+            <DialogDescription>
+              Review the content before printing. This includes Overview, New Deals Analysis, Broker Performance, Settlement Analysis, and Pipeline Flow.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 my-4">
+            <div className="flex justify-end gap-3 print:hidden">
+              <Button
+                variant="outline"
+                onClick={() => setShowPrintPreview(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => window.print()}
+                className="bg-gradient-to-r from-violet to-hot-pink text-white"
+              >
+                <Printer className="h-4 w-4 mr-2" />
+                Print Now
+              </Button>
+            </div>
+
+            <div id="print-content" className="space-y-8">
+              {/* Page Header */}
+              <div className="text-center border-b-2 border-violet pb-4">
+                <h1 className="text-3xl font-bold text-violet">DEALS DASHBOARD</h1>
+                <p className="text-sm text-gray-600 mt-2">
+                  Generated on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}
+                </p>
+                {startDate && endDate && (
+                  <p className="text-sm text-gray-600">
+                    Date Range: {format(new Date(startDate), "MMM dd, yyyy")} - {format(new Date(endDate), "MMM dd, yyyy")}
+                  </p>
+                )}
+              </div>
+
+              {/* Overview Section */}
+              <div className="page-break-after">
+                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                  1. Overview
+                </h2>
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div>
+                    <h3 className="font-semibold mb-2 text-center text-lg text-violet">Lead Sources</h3>
+                    <p className="text-center text-sm text-violet/70 mb-4">
+                      Total: {leadSourcesData.reduce((sum, item) => sum + item.value, 0)} deals
+                    </p>
+                    <div className="flex items-center justify-center min-h-[300px]">
+                      <PieChart data={leadSourcesData} size={300} />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2 text-center text-lg text-violet">Broker Distribution</h3>
+                    <p className="text-center text-sm text-violet/70 mb-4">
+                      Total: {brokerDistributionData.outerData.reduce((sum, item) => sum + item.value, 0)} deals
+                    </p>
+                    <div className="flex items-center justify-center min-h-[300px]">
+                      <DoubleRingPieChart outerData={brokerDistributionData.outerData} innerData={brokerDistributionData.innerData} size={300} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* New Deals Analysis Section */}
+              <div className="page-break-after">
+                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                  2. New Deals Analysis
+                </h2>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
+                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-medium text-violet">Total New Deals</p>
+                      <FileText className="h-4 w-4 text-violet/70" />
+                    </div>
+                    <p className="text-3xl font-bold text-hot-pink">{newDealsStats.totalNewDeals}</p>
+                  </div>
+                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-medium text-violet">Total New Value</p>
+                      <DollarSign className="h-4 w-4 text-violet/70" />
+                    </div>
+                    <p className="text-3xl font-bold text-hot-pink">{formatCurrency(newDealsStats.totalNewValue)}</p>
+                    <p className="text-xs text-violet/70 mt-1">From {newDealsStats.nonZeroDealsCount} Values</p>
+                  </div>
+                </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <h3 className="font-semibold mb-2 text-violet">New Deals by Broker</h3>
+                    <p className="text-sm text-violet/70 mb-2">
+                      Total: {newDealsBrokerDistribution.reduce((sum, item) => sum + item.value, 0)} deals
+                    </p>
+                    <BarChart data={newDealsBrokerDistribution} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2 text-violet">New Deals by Source (All Brokers)</h3>
+                    <p className="text-sm text-violet/70 mb-2">
+                      Total: {newDealsAllSourcesDistribution.reduce((sum, item) => sum + item.value, 0)} deals
+                    </p>
+                    <BarChart data={newDealsAllSourcesDistribution} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Broker Performance Section */}
+              <div className="page-break-after">
+                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                  3. Broker Performance (Total View)
+                </h2>
+                <BrokerPerformanceTable brokers={brokers} />
+              </div>
+
+              {/* Settlement Analysis Section */}
+              <div className="page-break-after">
+                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                  4. Settlement Analysis
+                </h2>
+                <p className="text-sm text-violet/80 mb-4">
+                  Interactive treemap of settled deals by value. Total settled: {filteredDeals.filter(d => d["6. Settled"] && d["6. Settled"].trim() !== "").length} deals
+                </p>
+                <InteractiveTreemap deals={filteredDeals} />
+              </div>
+
+              {/* Pipeline Flow Section */}
+              <div>
+                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                  5. Deal Pipeline Flow
+                </h2>
+                <p className="text-sm text-violet/80 mb-4">
+                  Visualize the deal flow from lead to settlement or loss. Total deals: {filteredDeals.length}
+                </p>
+                <SankeyDiagram deals={filteredDeals} startDate={startDate} endDate={endDate} />
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <style jsx global>{`
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          #print-content,
+          #print-content * {
+            visibility: visible;
+          }
+          #print-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+          }
+          .page-break-after {
+            page-break-after: always;
+          }
+          .print\\:hidden {
+            display: none !important;
+          }
+          @page {
+            size: A4;
+            margin: 1.5cm;
+          }
+        }
+      `}</style>
     </div>
   );
 }
