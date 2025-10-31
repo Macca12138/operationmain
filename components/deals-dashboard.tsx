@@ -3036,13 +3036,13 @@ export function DealsDashboard() {
 
             <div id="print-content" className="space-y-8">
               {/* Page Header */}
-              <div className="text-center border-b-2 border-violet pb-4">
-                <h1 className="text-3xl font-bold text-violet">DEALS DASHBOARD</h1>
-                <p className="text-sm text-gray-600 mt-2">
+              <div className="text-center border-b-2 border-gray-800 pb-4">
+                <h1 className="text-3xl font-bold text-gray-900">DEALS DASHBOARD</h1>
+                <p className="text-sm text-gray-700 mt-2">
                   Generated on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}
                 </p>
                 {startDate && endDate && (
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-700">
                     Date Range: {format(new Date(startDate), "MMM dd, yyyy")} - {format(new Date(endDate), "MMM dd, yyyy")}
                   </p>
                 )}
@@ -3050,60 +3050,60 @@ export function DealsDashboard() {
 
               {/* Overview Section */}
               <div className="page-break-after">
-                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   1. Overview
                 </h2>
 
                 {/* Key Metrics */}
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
-                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-bold text-gray-700">Total Deals</p>
-                      <FileText className="h-4 w-4 text-purple-600" />
+                      <p className="text-sm font-bold text-gray-800">Total Deals</p>
+                      <FileText className="h-4 w-4 text-gray-600" />
                     </div>
-                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                    <p className="text-3xl font-bold text-gray-900">
                       {stats.totalDeals}
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                       {stats.settledCount} settled, {stats.lostDeals} lost
                     </p>
                   </div>
 
-                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-bold text-gray-700">Conversion Rate</p>
-                      <Users className="h-4 w-4 text-blue-600" />
+                      <p className="text-sm font-bold text-gray-800">Conversion Rate</p>
+                      <Users className="h-4 w-4 text-gray-600" />
                     </div>
-                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                    <p className="text-3xl font-bold text-gray-900">
                       {stats.conversionRate}%
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                       {stats.convertedCount} of {stats.totalDeals} deals converted
                     </p>
                   </div>
 
-                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-bold text-gray-700">Total Settled Value</p>
-                      <DollarSign className="h-4 w-4 text-emerald-600" />
+                      <p className="text-sm font-bold text-gray-800">Total Settled Value</p>
+                      <DollarSign className="h-4 w-4 text-gray-600" />
                     </div>
-                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                    <p className="text-3xl font-bold text-gray-900">
                       {formatCurrency(stats.settledValue)}
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                       From {stats.settledCount} deals
                     </p>
                   </div>
 
-                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-bold text-gray-700">Settled Rate</p>
-                      <TrendingUp className="h-4 w-4 text-green-600" />
+                      <p className="text-sm font-bold text-gray-800">Settled Rate</p>
+                      <TrendingUp className="h-4 w-4 text-gray-600" />
                     </div>
-                    <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text">
+                    <p className="text-3xl font-bold text-gray-900">
                       {stats.settledRate}%
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-xs text-gray-700 mt-1">
                       {stats.settledCount} of {stats.totalDeals} deals settled
                     </p>
                   </div>
@@ -3112,8 +3112,8 @@ export function DealsDashboard() {
                 {/* Charts */}
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
-                    <h3 className="font-semibold mb-2 text-center text-lg text-violet">Lead Sources</h3>
-                    <p className="text-center text-sm text-violet/70 mb-4">
+                    <h3 className="font-semibold mb-2 text-center text-lg text-gray-900">Lead Sources</h3>
+                    <p className="text-center text-sm text-gray-700 mb-4">
                       Total: {leadSourcesData.reduce((sum, item) => sum + item.value, 0)} deals
                     </p>
                     <div className="flex items-center justify-center min-h-[300px]">
@@ -3121,8 +3121,8 @@ export function DealsDashboard() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-center text-lg text-violet">Broker Distribution</h3>
-                    <p className="text-center text-sm text-violet/70 mb-4">
+                    <h3 className="font-semibold mb-2 text-center text-lg text-gray-900">Broker Distribution</h3>
+                    <p className="text-center text-sm text-gray-700 mb-4">
                       Total: {brokerDistributionData.outerData.reduce((sum, item) => sum + item.value, 0)} deals
                     </p>
                     <div className="flex items-center justify-center min-h-[300px]">
@@ -3133,38 +3133,38 @@ export function DealsDashboard() {
               </div>
 
               {/* New Deals Analysis Section */}
-              <div className="page-break-after">
-                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   2. New Deals Analysis
                 </h2>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
-                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-medium text-violet">Total New Deals</p>
-                      <FileText className="h-4 w-4 text-violet/70" />
+                      <p className="text-sm font-bold text-gray-800">Total New Deals</p>
+                      <FileText className="h-4 w-4 text-gray-600" />
                     </div>
-                    <p className="text-3xl font-bold text-hot-pink">{newDealsStats.totalNewDeals}</p>
+                    <p className="text-3xl font-bold text-gray-900">{newDealsStats.totalNewDeals}</p>
                   </div>
-                  <div className="bg-white/60 border border-violet/20 rounded-lg p-4">
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-medium text-violet">Total New Value</p>
-                      <DollarSign className="h-4 w-4 text-violet/70" />
+                      <p className="text-sm font-bold text-gray-800">Total New Value</p>
+                      <DollarSign className="h-4 w-4 text-gray-600" />
                     </div>
-                    <p className="text-3xl font-bold text-hot-pink">{formatCurrency(newDealsStats.totalNewValue)}</p>
-                    <p className="text-xs text-violet/70 mt-1">From {newDealsStats.nonZeroDealsCount} Values</p>
+                    <p className="text-3xl font-bold text-gray-900">{formatCurrency(newDealsStats.totalNewValue)}</p>
+                    <p className="text-xs text-gray-700 mt-1">From {newDealsStats.nonZeroDealsCount} Values</p>
                   </div>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
-                    <h3 className="font-semibold mb-2 text-violet">New Deals by Broker</h3>
-                    <p className="text-sm text-violet/70 mb-2">
+                    <h3 className="font-semibold mb-2 text-gray-900">New Deals by Broker</h3>
+                    <p className="text-sm text-gray-700 mb-2">
                       Total: {newDealsBrokerDistribution.reduce((sum, item) => sum + item.value, 0)} deals
                     </p>
                     <BarChart data={newDealsBrokerDistribution} />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-violet">New Deals by Source (All Brokers)</h3>
-                    <p className="text-sm text-violet/70 mb-2">
+                    <h3 className="font-semibold mb-2 text-gray-900">New Deals by Source (All Brokers)</h3>
+                    <p className="text-sm text-gray-700 mb-2">
                       Total: {newDealsAllSourcesDistribution.reduce((sum, item) => sum + item.value, 0)} deals
                     </p>
                     <BarChart data={newDealsAllSourcesDistribution} />
@@ -3174,18 +3174,18 @@ export function DealsDashboard() {
 
               {/* Broker Performance Section */}
               <div className="page-break-after">
-                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   3. Broker Performance (Total View)
                 </h2>
                 <BrokerPerformanceTable brokers={brokers} />
               </div>
 
               {/* Settlement Analysis Section */}
-              <div className="page-break-after">
-                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   4. Settlement Analysis
                 </h2>
-                <p className="text-sm text-violet/80 mb-4">
+                <p className="text-sm text-gray-700 mb-4">
                   Interactive treemap of settled deals by value. Total settled: {filteredDeals.filter(d => d["6. Settled"] && d["6. Settled"].trim() !== "").length} deals
                 </p>
                 <InteractiveTreemap deals={filteredDeals} />
@@ -3193,10 +3193,10 @@ export function DealsDashboard() {
 
               {/* Pipeline Flow Section */}
               <div>
-                <h2 className="text-2xl font-bold text-violet mb-4 border-b border-violet/30 pb-2">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   5. Deal Pipeline Flow
                 </h2>
-                <p className="text-sm text-violet/80 mb-4">
+                <p className="text-sm text-gray-700 mb-4">
                   Visualize the deal flow from lead to settlement or loss. Total deals: {filteredDeals.length}
                 </p>
                 <SankeyDiagram deals={filteredDeals} startDate={startDate} endDate={endDate} />
@@ -3208,28 +3208,122 @@ export function DealsDashboard() {
 
       <style jsx global>{`
         @media print {
+          /* Override CSS variables for print */
+          :root {
+            --background: 0 0% 100% !important;
+            --foreground: 0 0% 0% !important;
+            --card: 0 0% 100% !important;
+            --card-foreground: 0 0% 0% !important;
+          }
+
+          /* Force white background on html and body */
+          html {
+            background: white !important;
+            background-color: white !important;
+          }
+
+          body {
+            background: white !important;
+            background-color: white !important;
+          }
+
+          /* Override Dialog/Portal structure constraints */
+          [data-radix-portal],
+          [data-radix-portal] > *,
+          [role="dialog"],
+          [data-state="open"] {
+            position: static !important;
+            transform: none !important;
+            max-width: none !important;
+            width: 100% !important;
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            inset: auto !important;
+            left: auto !important;
+            top: auto !important;
+            translate: none !important;
+          }
+
+          /* Hide dialog overlay */
+          [data-radix-portal] > [data-radix-dialog-overlay] {
+            display: none !important;
+          }
+
+          /* Remove all height and overflow constraints from parent elements */
+          body, body * {
+            max-height: none !important;
+            height: auto !important;
+            overflow: visible !important;
+          }
+
           body * {
             visibility: hidden;
           }
+
           #print-content,
           #print-content * {
-            visibility: visible;
+            visibility: visible !important;
           }
+
           #print-content {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
+            position: static !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 100% !important;
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+            background: white !important;
+            padding: 0 !important;
+            margin: 0 !important;
           }
           .page-break-after {
-            page-break-after: always;
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
           }
           .print\\:hidden {
             display: none !important;
           }
           @page {
             size: A4;
-            margin: 1.5cm;
+            margin: 1cm;
+          }
+          /* Ensure solid colors for printing */
+          #print-content h1,
+          #print-content h2,
+          #print-content h3,
+          #print-content p,
+          #print-content div {
+            color: #000 !important;
+            background: white !important;
+          }
+          #print-content .bg-white {
+            background: white !important;
+            border: 2px solid #d1d5db !important;
+          }
+          #print-content .border-gray-300 {
+            border-color: #d1d5db !important;
+          }
+          #print-content .border-gray-800 {
+            border-color: #1f2937 !important;
+          }
+          #print-content .text-gray-900 {
+            color: #111827 !important;
+          }
+          #print-content .text-gray-800 {
+            color: #1f2937 !important;
+          }
+          #print-content .text-gray-700 {
+            color: #374151 !important;
+          }
+          #print-content .text-gray-600 {
+            color: #4b5563 !important;
           }
         }
       `}</style>
