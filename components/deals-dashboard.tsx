@@ -3036,7 +3036,7 @@ export function DealsDashboard() {
 
             <div id="print-content" className="space-y-8">
               {/* Page Header */}
-              <div className="text-center border-b-2 border-gray-800 pb-4">
+              <div className="text-center border-b-2 border-gray-800 pb-4 hide-in-print">
                 <h1 className="text-3xl font-bold text-gray-900">DEALS DASHBOARD</h1>
                 <p className="text-sm text-gray-700 mt-2">
                   Generated on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}
@@ -3049,7 +3049,7 @@ export function DealsDashboard() {
               </div>
 
               {/* Overview Section */}
-              <div className="page-break-after">
+              <div className="page-break-after hide-in-print">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   1. Overview
                 </h2>
@@ -3280,19 +3280,76 @@ export function DealsDashboard() {
             max-height: none !important;
             overflow: visible !important;
             background: white !important;
-            padding: 0 !important;
+            padding: 0.5cm !important;
             margin: 0 !important;
           }
           .page-break-after {
             page-break-after: always !important;
             page-break-inside: avoid !important;
           }
-          .print\\:hidden {
+          .print\\:hidden,
+          .hide-in-print {
             display: none !important;
           }
           @page {
             size: A4;
-            margin: 1cm;
+            margin: 0.8cm;
+          }
+          /* Scale down fonts and elements for better fit */
+          #print-content h1 {
+            font-size: 20px !important;
+            margin-bottom: 8px !important;
+          }
+          #print-content h2 {
+            font-size: 16px !important;
+            margin-bottom: 8px !important;
+            padding-bottom: 4px !important;
+          }
+          #print-content h3 {
+            font-size: 13px !important;
+            margin-bottom: 6px !important;
+          }
+          #print-content p,
+          #print-content div {
+            font-size: 10px !important;
+          }
+          /* Scale down spacing */
+          #print-content .space-y-8 > * + * {
+            margin-top: 12px !important;
+          }
+          #print-content .space-y-6 > * + * {
+            margin-top: 8px !important;
+          }
+          #print-content .mb-6,
+          #print-content .my-6 {
+            margin-bottom: 8px !important;
+          }
+          #print-content .mb-4,
+          #print-content .my-4 {
+            margin-bottom: 6px !important;
+          }
+          #print-content .mb-2 {
+            margin-bottom: 4px !important;
+          }
+          #print-content .gap-4 {
+            gap: 8px !important;
+          }
+          #print-content .gap-6 {
+            gap: 10px !important;
+          }
+          #print-content .p-4 {
+            padding: 8px !important;
+          }
+          #print-content .pb-4 {
+            padding-bottom: 8px !important;
+          }
+          /* Scale down charts and graphs */
+          #print-content svg {
+            transform: scale(0.8) !important;
+            transform-origin: top left !important;
+          }
+          #print-content .min-h-\\[300px\\] {
+            min-height: 200px !important;
           }
           /* Ensure solid colors for printing */
           #print-content h1,
