@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -44,10 +44,19 @@ interface GoogleSheetsLoaderProps {
 }
 
 export function GoogleSheetsLoader({ onDataLoad, onError, isLoading, setIsLoading }: GoogleSheetsLoaderProps) {
-  const [apiKey, setApiKey] = useState("");
-  const [sheetId, setSheetId] = useState("");
-  const [sheetRange, setSheetRange] = useState("Sheet1");
+  const [apiKey, setApiKey] = useState(process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "");
+  const [sheetId, setSheetId] = useState(process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL || "");
+  const [sheetRange, setSheetRange] = useState(process.env.NEXT_PUBLIC_GOOGLE_SHEET_NAME || "Sheet1");
   const [localError, setLocalError] = useState<string | null>(null);
+  const [autoLoadAttempted, setAutoLoadAttempted] = useState(false);
+
+  // Auto-load data on mount if environment variables are set
+  useEffect(() => {
+    if (!autoLoadAttempted && apiKey && sheetId && !isLoading) {
+      setAutoLoadAttempted(true);
+      handleLoad();
+    }
+  }, [autoLoadAttempted]);
 
   const handleLoad = async () => {
     if (!apiKey.trim()) {
