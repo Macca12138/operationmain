@@ -3023,14 +3023,7 @@ export function DealsDashboard() {
                 variant="outline"
                 onClick={() => setShowPrintPreview(false)}
               >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => window.print()}
-                className="bg-gradient-to-r from-violet to-hot-pink text-white"
-              >
-                <Printer className="h-4 w-4 mr-2" />
-                Print Now
+                Close Preview
               </Button>
             </div>
 
@@ -3049,7 +3042,7 @@ export function DealsDashboard() {
               </div>
 
               {/* Overview Section */}
-              <div className="page-break-after hide-in-print">
+              <div className="hide-in-print">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   1. Overview
                 </h2>
@@ -3173,7 +3166,7 @@ export function DealsDashboard() {
               </div>
 
               {/* Broker Performance Section */}
-              <div className="page-break-after">
+              <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
                   3. Broker Performance (Total View)
                 </h2>
@@ -3280,11 +3273,15 @@ export function DealsDashboard() {
             max-height: none !important;
             overflow: visible !important;
             background: white !important;
-            padding: 0.5cm !important;
+            padding: 0.2cm !important;
             margin: 0 !important;
+            transform: scale(0.6) !important;
+            transform-origin: top left !important;
           }
-          .page-break-after {
-            page-break-after: always !important;
+          /* Disable page breaks - fit everything on one page */
+          * {
+            page-break-before: avoid !important;
+            page-break-after: avoid !important;
             page-break-inside: avoid !important;
           }
           .print\\:hidden,
@@ -3293,63 +3290,65 @@ export function DealsDashboard() {
           }
           @page {
             size: A4;
-            margin: 0.8cm;
+            margin: 0.3cm;
           }
-          /* Scale down fonts and elements for better fit */
+          /* Scale down fonts and elements aggressively for single page fit */
           #print-content h1 {
-            font-size: 20px !important;
-            margin-bottom: 8px !important;
+            font-size: 14px !important;
+            margin-bottom: 4px !important;
           }
           #print-content h2 {
-            font-size: 16px !important;
-            margin-bottom: 8px !important;
-            padding-bottom: 4px !important;
+            font-size: 12px !important;
+            margin-bottom: 4px !important;
+            padding-bottom: 2px !important;
           }
           #print-content h3 {
-            font-size: 13px !important;
-            margin-bottom: 6px !important;
+            font-size: 10px !important;
+            margin-bottom: 3px !important;
           }
           #print-content p,
           #print-content div {
-            font-size: 10px !important;
+            font-size: 7px !important;
           }
-          /* Scale down spacing */
+          /* Minimize spacing for single page fit */
           #print-content .space-y-8 > * + * {
-            margin-top: 12px !important;
+            margin-top: 4px !important;
           }
           #print-content .space-y-6 > * + * {
-            margin-top: 8px !important;
+            margin-top: 3px !important;
           }
           #print-content .mb-6,
           #print-content .my-6 {
-            margin-bottom: 8px !important;
+            margin-bottom: 3px !important;
           }
           #print-content .mb-4,
           #print-content .my-4 {
-            margin-bottom: 6px !important;
+            margin-bottom: 2px !important;
           }
           #print-content .mb-2 {
-            margin-bottom: 4px !important;
+            margin-bottom: 1px !important;
           }
           #print-content .gap-4 {
-            gap: 8px !important;
+            gap: 2px !important;
           }
           #print-content .gap-6 {
-            gap: 10px !important;
+            gap: 3px !important;
           }
           #print-content .p-4 {
-            padding: 8px !important;
+            padding: 3px !important;
           }
           #print-content .pb-4 {
-            padding-bottom: 8px !important;
+            padding-bottom: 3px !important;
           }
-          /* Scale down charts and graphs */
+          /* Scale down charts and graphs aggressively */
           #print-content svg {
-            transform: scale(0.8) !important;
+            transform: scale(0.5) !important;
             transform-origin: top left !important;
+            max-height: 150px !important;
           }
           #print-content .min-h-\\[300px\\] {
-            min-height: 200px !important;
+            min-height: 100px !important;
+            max-height: 150px !important;
           }
           /* Ensure solid colors for printing */
           #print-content h1,
@@ -3360,15 +3359,16 @@ export function DealsDashboard() {
             color: #000 !important;
             background: white !important;
           }
-          #print-content .bg-white {
+          /* Remove all borders and outlines */
+          #print-content .bg-white,
+          #print-content [class*="border"] {
             background: white !important;
-            border: 2px solid #d1d5db !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
           }
-          #print-content .border-gray-300 {
-            border-color: #d1d5db !important;
-          }
-          #print-content .border-gray-800 {
-            border-color: #1f2937 !important;
+          #print-content .border-b-2 {
+            border: none !important;
           }
           #print-content .text-gray-900 {
             color: #111827 !important;
